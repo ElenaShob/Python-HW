@@ -46,6 +46,7 @@ def print_data():
             print(*i)
 
 
+
 def change_data():
     var = int(input("В каком файле заменить данные в 1 или 2: "))
     while var != 1 and var != 2:
@@ -56,7 +57,7 @@ def change_data():
     if var == 1:
         with open('data_first_variant.csv', 'r', encoding='utf-8') as f:
             data_first = f.readlines()
-            change_element = list()
+        change_element = list()
         while number * 5 > len(data_first) - 1:
             print("Неправильный ввод")
             number = int(input("Введите номер записи, которую надо изменить: "))
@@ -64,16 +65,10 @@ def change_data():
             change_element.append(data_first[i])
         change_list_new = change_variant(change_element) 
 
-        data_first_new = list()
-        for i in range(0, number * 5):
-            data_first_new.append(data_first[i])
-        for i in range(5):
-            data_first_new.append(change_list_new[i])
-        for i in range(number * 5 + 5, len(data_first)):
-            data_first_new.append(data_first[i])
-        print(data_first_new)
-        # with open('data_first_variant.csv', 'w', encoding='utf-8') as f:
-        #     f.writelines(data_first_new)
+        for i in range(number * 5, number * 5 + 5):
+            data_first[i] = change_list_new[i - number * 5]
+        with open('data_first_variant.csv', 'w', encoding='utf-8') as f:
+            f.writelines(data_first)
 
     if var == 2:
         with open('data_second_variant.csv', 'r', encoding='utf-8') as f:
@@ -82,20 +77,13 @@ def change_data():
             print("Неправильный ввод")
             number = int(input("Введите номер записи, которую надо изменить: "))
         change_element = data_second[number]
-        change_element_new = change_variant(change_element)
-        data_second_new = list()
-        for i in range(0, number):
-            data_second_new.append(data_second[i])
-        data_second_new.append(change_element_new)
-        for i in range(number + 1, len(data_second)):
-            data_second_new.append(data_second[i])
-        print(data_second_new)
-        # with open('data_second_variant.csv', 'w', encoding='utf-8') as f:
-        #     f.writelines(data_second_new)
-    
+        change_element = change_variant(change_element)
+        data_second[number] = change_element
+        with open('data_second_variant.csv', 'w', encoding='utf-8') as f:
+            f.writelines(data_second)
+        
     print(f"Запись {number} успешно изменена")
 
-change_data()
 
 
 def delit_data():
@@ -108,31 +96,32 @@ def delit_data():
     if var == 1:
         with open('data_first_variant.csv', 'r', encoding='utf-8') as f:
             data_first = f.readlines()
-            while number * 5 > len(data_first) - 1:
-                print("Неправильный ввод")
-                number = int(input("Введите номер записи, которую надо удалить: "))
-            data_first_new = list()
-            for i in range(0, number * 5):
-                data_first_new.append(data_first[i])
-            for i in range(number * 5 + 5, len(data_first)):
-                data_first_new.append(data_first[i])
+        while number * 5 > len(data_first) - 1:
+            print("Неправильный ввод")
+            number = int(input("Введите номер записи, которую надо удалить: "))
+        data_first_new = list()
+        for i in range(0, number * 5):
+            data_first_new.append(data_first[i])
+        for i in range(number * 5 + 5, len(data_first)):
+            data_first_new.append(data_first[i])
         with open('data_first_variant.csv', 'w', encoding='utf-8') as f:
             f.writelines(data_first_new)
             
     if var == 2:
         with open('data_second_variant.csv', 'r', encoding='utf-8') as f:
             data_second = f.readlines()
-            while number > len(data_second) - 1:
-                print("Неправильный ввод")
-                number = int(input("Введите номер записи, которую надо удалить: "))
-            data_second_new = list()
-            for i in range(0, number):
-                data_second_new.append(data_second[i])
-            for i in range(number + 1, len(data_second)):
-                data_second_new.append(data_second[i])
+        while number > len(data_second) - 1:
+            print("Неправильный ввод")
+            number = int(input("Введите номер записи, которую надо удалить: "))
+        data_second_new = list()
+        for i in range(0, number):
+            data_second_new.append(data_second[i])
+        for i in range(number + 1, len(data_second)):
+            data_second_new.append(data_second[i])
         with open('data_second_variant.csv', 'w', encoding='utf-8') as f:
             f.writelines(data_second_new)
     print(f"Запись {number} успешно удалена")
+
 
 
            

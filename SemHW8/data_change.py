@@ -15,10 +15,13 @@ def change_variant(change_element):
     else:
         change_el = change_element.split(';')
         new_el = input("Введите новое значение: ")
-        change_el[change_var - 1] = new_el
-        change_element = ';'.join(change_el)
-        if change_element[:-2] != '\n':
-            change_element += '\n'
+        if change_var == 4:
+            change_el[change_var - 1] = new_el + '\n'
+            change_element = ';'.join(change_el)
+        else:
+            change_el[change_var - 1] = new_el
+            change_element = ';'.join(change_el)
+        
     
     return(change_element)
     
